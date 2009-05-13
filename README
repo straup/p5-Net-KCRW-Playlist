@@ -1,0 +1,79 @@
+NAME
+    Net::KCRW::Playlist - Fetch playlist data for the KCRW.org radio station
+
+SYNOPSIS
+     my $ymd = '20081230';
+     my $start = undef;
+     my $stop = '10 AM';
+
+     my $kcrw = Net::KCRW::Playlist->new();
+     my $songs = $kcrw->fetch($ymd, $start, $stop);
+
+     print Dumper($songs);
+
+     # which would print something like this:
+
+     $VAR1 = [
+              {
+                'album' => 'Bajo Fondo',
+                'artist' => 'Emilio Kauderer',
+                'song' => 'Maroma (Fill)',
+                'time' => '8:59'
+              },
+              {
+                'album' => 'Popular (Unreleased)',
+                'artist' => 'Van Hunt',
+                'song' => 'Turn My Tv On',
+                'time' => '9:04'
+              },
+              {
+                'album' => 'Verve Unmixed 4 Verve',
+                'artist' => 'Marlena Shaw',
+                'song' => 'California Soul',
+                'time' => '9:08'
+              },
+              ]
+
+DESCRIPTION
+    Fetch playlist data for the KCRW.org radio station.
+
+PACKAGE METHODS
+  __PACKAGE__->new(%args)
+    Net::KCRW::Playlist subclasses the LWP::UserAgent package so anything
+    you can pass to the latter's contructor you may pass to the former.
+
+    Returns a *Net::KCRW::Playlist* object!
+
+OBJECT METHODS
+  $obj->fetch($ymd, $start, $stop)
+    * $ymd (required)
+        The year, month and day to fetch playlist information. Should be
+        formatted as a ISO-8601 compliant date (but can be formatted in
+        anything the *Date::Parse* module understands).
+
+    * $start (optional)
+        The minimum time of day in which to fetch playlist information. Can
+        be formatted in anything that the *Date::Parse* understands.
+
+    * $stop (optional)
+        The maximum time of day in which to fetch playlist information. Can
+        be formatted in anything that the *Date::Parse* understands.
+
+    Returns an array reference of tracks/songs, each a hash reference
+    containing the following keys: time, artist, song and album.
+
+VERSION
+    1.0
+
+DATE
+    $Date: 2008/12/30 19:25:20 $
+
+AUTHOR
+    Aaron Straup Cope <ascope@cpan.org>
+
+LICENSE
+    Copyright (c) 2008 Aaron Straup Cope. All Rights Reserved.
+
+    This is free software. You may redistribute it and/or modify it under
+    the same terms as Perl itself.
+
