@@ -1,6 +1,6 @@
 ---
 name: Net-KCRW-Playlist
-version: 1.0
+version: 1.01
 author:
   - 'Aaron Straup Cope E<lt>ascope@cpan.orgE<gt>'
 abstract: Fetch playlist data for the KCRW.org radio station
@@ -17,7 +17,7 @@ build_requires:
 provides:
   Net::KCRW::Playlist:
     file: lib/Net/KCRW/Playlist.pm
-    version: 1.0
+    version: 1.01
 generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

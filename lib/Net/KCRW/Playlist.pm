@@ -1,11 +1,11 @@
 use strict;
 
-# $Id: Playlist.pm,v 1.6 2009/01/01 17:12:43 asc Exp $
+# $Id: Playlist.pm,v 1.1 2009/05/13 14:55:43 asc Exp $
 
 package Net::KCRW::Playlist;
 use base qw(LWP::UserAgent);
 
-$Net::KCRW::Playlist::VERSION = '1.0';
+$Net::KCRW::Playlist::VERSION = '1.01';
 
 =head1 NAME
 
@@ -258,6 +258,29 @@ sub assign_musicbrainz_ids {
 
 =head2 $obj->scrobble($lastfm_user, $lastfm_pswd, \@songs)
 
+There are two things to note about this method.
+
+=over 4
+
+=item * B<1> It uses the old-skool Last.fm API instead of the
+shiny-token based one.
+
+Holy anti-password patterns, Batman!
+
+=item * B<2> It doesn't seem to work.
+
+I presume this has something to do with the magic specialness
+of how scrobbling works. Specifically, you need a blessed key
+or something.
+
+Currently the B<tst> account/scrobble-key is hard-coded, per
+the docs but that doesn't seem to work either.
+
+It's on the list, but if someone wants to figure it out sooner
+that would be grand.
+
+=back
+
 =cut
 
 # http://www.last.fm/api/submissions
@@ -333,24 +356,24 @@ sub scrobble {
         $post->content_type("application/x-www-form-urlencoded; charset=\"UTF\"");
         $post->content($query);
 
-        my $res = $self->request($post);
+        my $scr = $self->request($post);
 
-        if (! $res->is_success()){
-                warn "scrobbling failed, " . $res->message();
+        if (! $scr->is_success()){
+                warn "scrobbling failed, " . $scr->message();
                 return 0;
         }
 
         print "OK?\n";
-        print $res->as_string();
+        print $scr->as_string();
         return 1;
 }
 =head1 VERSION
 
-1.0
+1.01
 
 =head1 DATE
 
-$Date: 2009/01/01 17:12:43 $
+$Date: 2009/05/13 14:55:43 $
 
 =head1 AUTHOR
 
@@ -358,7 +381,7 @@ Aaron Straup Cope E<lt>ascope@cpan.orgE<gt>
 
 =head1 LICENSE
 
-Copyright (c) 2008 Aaron Straup Cope. All Rights Reserved.
+Copyright (c) 2008-2009 Aaron Straup Cope. All Rights Reserved.
 
 This is free software. You may redistribute it and/or
 modify it under the same terms as Perl itself.

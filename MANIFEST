@@ -1,4 +1,4 @@
-# $Id: MANIFEST,v 1.1 2008/12/30 19:25:20 asc Exp $
+# $Id: MANIFEST,v 1.1 2009/05/13 14:55:43 asc Exp $
 Build.PL
 lib/Net/KCRW/Playlist.pm
 Makefile.PL
